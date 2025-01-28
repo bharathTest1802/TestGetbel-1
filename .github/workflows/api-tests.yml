@@ -7,31 +7,24 @@ on:
   pull_request:
     branches:
       - main  # Trigger on pull requests to the main branch
+  workflow_dispatch:  # Enable manual trigger through GitHub API/UI
 
 jobs:
   newman-test:
-    runs-on: ubuntu-latest  # Use an Ubuntu runner for the job
-
-    env:
-      ACTIONS_RUNNER_DEBUG: true  # Enable runner debug logs
-      ACTIONS_STEP_DEBUG: true    # Enable step debug logs
+    runs-on: ubuntu-latest  # Or another runner you are using
 
     steps:
-      # Step 1: Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      # Step 2: Set up Node.js (since Newman is a Node.js application)
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '16'  # Specify the version of Node.js (use the version you need)
+          node-version: '16'
 
-      # Step 3: Install Newman globally
       - name: Install Newman
         run: npm install -g newman
 
-      # Step 4: Run the Postman collection with Newman
       - name: Run Postman Collection with Newman
         run: |
           newman run postman/AuthService.postman_collection.json -e postman/uat.postman_environment.json
