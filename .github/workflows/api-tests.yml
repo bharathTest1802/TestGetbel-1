@@ -12,6 +12,10 @@ jobs:
   newman-test:
     runs-on: ubuntu-latest  # Use an Ubuntu runner for the job
 
+    env:
+      ACTIONS_RUNNER_DEBUG: true  # Enable runner debug logs
+      ACTIONS_STEP_DEBUG: true    # Enable step debug logs
+
     steps:
       # Step 1: Checkout the repository
       - name: Checkout repository
